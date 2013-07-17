@@ -1,0 +1,133 @@
+= inline-block($align: top)
+  :zoom 1
+  :display inline
+  :display -moz-inline-box
+  :display inline-block
+  :*display inline
+  :vertical-align $align
+
+= children-inline($align: top)
+  > *
+    +inline-block($align)
+
+= box-shadow($value)
+  :box-shadow $value
+  :-moz-box-shadow $value
+  :-webkit-box-shadow $value
+
+$base_transition: all .1s ease-out !default
+
+= transition($value: $base_transition)
+  :transition $value
+  :-webkit-transition $value
+  :-moz-transition $value
+  :-o-transition $value
+
+$main_radius: 3px !default
+
+= border-radius($radius: $main_radius, $y: false, $x: false)
+  @if $x
+    :-moz-border-radius-#{$y}#{$x} $radius
+    :-o-border-radius-#{$y}-#{$x} $radius
+    :-khtml-border-radius-#{$y}-#{$x} $radius
+    :-ms-border-radius-#{$y}-#{$x} $radius
+    :-webkit-border-#{$y}-#{$x}-radius $radius
+    :border-#{$y}-#{$x}-radius $radius
+  @else
+    :-moz-border-radius $radius
+    :-o-border-radius $radius
+    :-ms-border-radius $radius
+    :-khtml-border-radius $radius
+    :-webkit-border-radius $radius
+    :border-radius $radius
+
+= opacity($value, $ie: false)
+  :opacity $value
+  :-moz-opacity $value
+  @if $ie
+    :filter progid:DXImageTransform.Microsoft.Alpha(opacity=#{$value * 100})
+    :-ms-filter "progid:DXImageTransform.Microsoft.Alpha(opacity=#{$value * 100})"
+
+= unselectable
+  :-webkit-user-select none
+  :-khtml-user-select none
+  :-moz-user-select -moz-none
+  :-o-user-select none
+  :user-select none
+
+= selectable
+  :-webkit-user-select text
+  :-khtml-user-select text
+  :-moz-user-select -moz-text
+  :-o-user-select text
+  :user-select text
+
+html, body
+  :padding 0
+  :margin 0
+  :background #f6f6f6
+  :background rgb(127, 182, 204)
+  :height 100%
+  :font-family sans-serif
+
+.screen.hello
+  
+.screen.game
+  :height 100%
+  div.pictures
+    :padding-left 1%
+    > *
+      +inline-block
+      :width 24%
+      :margin 1% 1% 0 0
+      :background #fff
+      :text-align center
+      :padding 1% 0
+      :cursor pointer
+      img
+        :max-width 96%
+        :max-height 100%
+      &.choosen
+        :background #ffd
+  &.portrait
+    div.pictures > *
+      :width 32%
+
+  div.buttons
+    :height 10%
+    :display block
+    :text-align center
+    :margin-top 2%
+    > *
+      :color #666
+      :line-height 20px
+      :padding 8px 20px
+      +inline-block
+      :margin 0 13px
+    > a
+      :background-color #dedede
+      :cursor pointer
+      +box-shadow(0px 1px 2px rgba(0, 0, 0, 0.4))
+      &.correct
+        :background rgb(184, 235, 198)
+    .score
+      :color #000
+      :font-weight bold
+    .correct-count
+      :color rgb(20, 111, 45)
+    &.disabled
+      :position relative
+      &:after
+        :content ''
+        :position absolute
+        :display block
+        :left 0
+        :right 0
+        :top 0
+        :bottom 0
+        //:background rgba(#f6f6f6, 0.7)
+      > a
+        :color #aaa
+        :background-color #eee
+        +box-shadow(0px 1px 1px rgba(0, 0, 0, 0.1))
+      

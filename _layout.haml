@@ -1,0 +1,10 @@
+!!! 5
+%html
+  %head
+    %title Telepathy game
+
+    - for script in %w{right dominate game app}
+      %script{:src => "scripts/#{script}.js", :type => "text/javascript"}
+    %link(rel="stylesheet" href="style.sass.css")
+  %body
+    = yield
